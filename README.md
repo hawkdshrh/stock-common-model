@@ -1,22 +1,21 @@
-# resupply-stock-processor project
+# stock-common-model project
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework, and KafkaStreams.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ . Or KafkaStreams: https://kafka.apache.org/documentation/streams/ .
 
-## Application
+## Library
 
-This app runs a KafkaStreams topology which consumes orders and shipments (from topics of the same name) and produces a stream of stock reservations per product SKU.
+This library packages common classes used by the inventory demo components.
 
-### Logic
-* The "warehouse", represented by the stock-levels topic, is the master of stock and periodically updates absolute stock levels per SKU.
-* New customer orders and shipments create and release reservations on existing stock for each product SKU and quantity ordered.
-
-### Assumptions
-* Updates to stock-levels per SKU always supersede previous updates. (Lots of things can happen in the warehouse to change stock-levels.)
-* updated-stock per SKU, resulting from supply orders, will be used to modify in real time the latest stock-levels. 
- 
-(The reserved-stock-processor project: https://github.com/merlante/reserved-stock-processor does this last bit, producing a real time stream of stock reservations.)
+### Objects
+* A Product represents the sku and human-readable name of a product tracked by the inventory system.
+* A SupplyUpdate represents one or more updates to Products / quantities tracked by the inventory system. Each product included in an Update is represented as the 
+* key / value pair as a SupplyUpdateEntry.
+* An Order represents quantities of one or more products reserved by a downstream customer. Each product type and quantity is represented as a key / value pair by
+* class OrderEntry.
+* A Shipment represents a realized transfer of products / quantities into the transportation system that are no longer available in the inventory system.  Each 
+* product included with a shipment is represented by ShipmentLineEntry as a key / value pair, with Product as the key and Quantity as the value.
 
 ## Quickstart
 
