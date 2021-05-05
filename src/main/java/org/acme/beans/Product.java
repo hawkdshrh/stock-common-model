@@ -1,11 +1,17 @@
 package org.acme.beans;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
+//@Entity
 @RegisterForReflection
 public class Product {
     private String productSku;
     private String productName;
+    private Long id;
 
 
     public Product() {
@@ -21,6 +27,17 @@ public class Product {
         this.productName = productName;
     }
 
+//    @Id
+//    @SequenceGenerator(name="productSeq", sequenceName="product_id_seq", allocationSize=1, initialValue=1)
+//    @GeneratedValue(generator="productSeq")
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getProductSku() {
         return productSku;
     }
