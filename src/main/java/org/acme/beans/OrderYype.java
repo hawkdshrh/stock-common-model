@@ -9,12 +9,12 @@ package org.acme.beans;
  *
  * @author dhawkins
  */
-public enum OrderCode {
+public enum OrderYype {
     SUBMISSION("SUBMISSION"), UPDATE("UPDATE"), FULFILLMENT("FULLFILLMENT"), RETURN("RETURN");
     
     public final String value;
     
-    private OrderCode(String value) {
+    private OrderYype(String value) {
         this.value = value;
     }
 }
