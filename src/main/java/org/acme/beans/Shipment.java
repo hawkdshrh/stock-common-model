@@ -6,23 +6,23 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public class Shipment {
-    private String orderId;
+    private String orderCode;
     private ShipmentLineEntry[] shipmentLineEntries;
 
     public Shipment() {
 
     }
 
-    public Shipment(String orderId, ShipmentLineEntry[] shipmentLineEntries) {
-        this.orderId = orderId;
+    public Shipment(String orderCode, ShipmentLineEntry[] shipmentLineEntries) {
+        this.orderCode = orderCode;
         this.shipmentLineEntries = shipmentLineEntries;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public String getOrderCode() {
+        return orderCode;
     }
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
     }
     public ShipmentLineEntry[] getShipmentLineEntries() {
         return shipmentLineEntries;
@@ -35,7 +35,7 @@ public class Shipment {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
+        result = prime * result + ((orderCode == null) ? 0 : orderCode.hashCode());
         result = prime * result + Arrays.hashCode(shipmentLineEntries);
         return result;
     }
@@ -49,10 +49,10 @@ public class Shipment {
         if (getClass() != obj.getClass())
             return false;
         Shipment other = (Shipment) obj;
-        if (orderId == null) {
-            if (other.orderId != null)
+        if (orderCode == null) {
+            if (other.orderCode != null)
                 return false;
-        } else if (!orderId.equals(other.orderId))
+        } else if (!orderCode.equals(other.orderCode))
             return false;
         if (!Arrays.equals(shipmentLineEntries, other.shipmentLineEntries))
             return false;

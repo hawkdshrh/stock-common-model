@@ -1,11 +1,23 @@
 package org.acme.beans;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "order_entry")
 @RegisterForReflection
 public class OrderEntry {
     private Product product;
     private Integer quantity;
+    private Long orderEntryId;
+    private Long orderCode;
 
     public OrderEntry() {
 
@@ -15,7 +27,27 @@ public class OrderEntry {
         this.product = product;
         this.quantity = quantity;
     }
+    
+    @Id
+    @SequenceGenerator(name="orderEntrySeq", sequenceName="order_entry_id_seq", allocationSize=1, initialValue=1)
+    @GeneratedValue(generator="orderEntrySeq")
+    public Long getOrderEntryId() {
+        return this.orderEntryId;
+    }
+    
+    public void setOrderEntryId(Long orderEntryId) {
+        this.orderEntryId = orderEntryId;
+    }
+    
+    public Long getOrderCode() {
+        return this.orderCode;
+    }
+    
+    public void setOrderCode(Long ordeCode) {
+        this.orderCode = orderCode;
+    }
 
+    @ManyToOne(fetch = FetchType.EAGER)
     public Product getProduct() {
         return product;
     }

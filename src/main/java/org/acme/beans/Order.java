@@ -4,16 +4,18 @@ import java.util.Arrays;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
-//@Entity
+@Entity
+@Table(name = "orders")
 @RegisterForReflection
 public class Order {
     private String orderCode;
     private OrderEntry[] orderEntries;
-    private Long orderId;
 
     public Order() {
 
@@ -24,30 +26,17 @@ public class Order {
         this.orderEntries = orderEntries;
     }
     
-    
-    public Order(Long orderId, String orderCode, OrderEntry[] orderEntries) {
-        this.orderId = orderId;
-        this.orderCode = orderCode;
-        this.orderEntries = orderEntries;
-    }
-    
-//    @Id
-//    @SequenceGenerator(name="orderSeq", sequenceName="order_id_seq", allocationSize=1, initialValue=1)
-//    @GeneratedValue(generator="orderSeq")
-    public Long getOrderId() {
-        return this.orderId;
-    }
-    
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
+    @Id
     public String getOrderCode() {
         return orderCode;
     }
+    
     public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderCode")
+    @OrderColumn(name="order_entries_index")
     public OrderEntry[] getOrderEntries() {
         return orderEntries;
     }
